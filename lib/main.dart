@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:islami_app/UI/home/home_screen.dart';
 import 'package:islami_app/UI/quarn_details/quran_details_screen.dart';
 
+import 'UI/hadeth_details/hadeth_details_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -48,7 +50,8 @@ titleTextStyle: TextStyle(
       initialRoute: HomeScreen.routeName,
       routes: {
            HomeScreen.routeName:(_)=>HomeScreen(),
-        QuranDetailsScreen.routeName:(_)=>QuranDetailsScreen(),
+           QuranDetailsScreen.routeName:(_)=>QuranDetailsScreen(),
+           HadethDetailsScreen.routeName:(_)=>HadethDetailsScreen(),
       },
 
 
