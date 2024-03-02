@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:islami_app/UI/home/hadeth_model.dart';
+import 'package:provider/provider.dart';
+import '../../providers/settings_provider.dart';
+import '../../style/app_theme.dart';
 
 class HadethDetailsScreen extends StatelessWidget {
 
@@ -8,6 +11,8 @@ class HadethDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SettingsProvider provider = Provider.of<SettingsProvider>(context);
+
     final headthModel =   ModalRoute.of(context)?.settings.arguments as HeadthModel?;
      if (headthModel == null) {
        return Scaffold(
@@ -23,7 +28,9 @@ class HadethDetailsScreen extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/images/backgroundall.png"),
+          image: AssetImage(provider.theme == ThemeMode.dark?
+          "assets/images/bg-dark.png":
+          "assets/images/backgroundall.png"),
           fit: BoxFit.fill,
         ),
       ),
@@ -39,20 +46,16 @@ class HadethDetailsScreen extends StatelessWidget {
         body: Column(
           children: [
             Expanded(
-              child: SingleChildScrollView(
                 child: Card(
-                  margin: EdgeInsets.all(25),
-                  elevation: 10,
+                  child: SingleChildScrollView(
                   child: Text(
                     textAlign: TextAlign.right,
                     headthModel.title,
-                    style: TextStyle(
-                      fontSize: 26,
+                    style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
                 ),
               ),
-            ),
           ],
         ),
       ),

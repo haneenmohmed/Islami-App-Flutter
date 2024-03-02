@@ -15,10 +15,7 @@ HeadthModel hadeth ;
       child: Text(
       hadeth.content,
         textAlign: TextAlign.center,
-        style: TextStyle (
-          fontSize: 18
-        ),
-      ),
+          style: Theme.of(context).textTheme.labelMedium),
     );
   }
 }

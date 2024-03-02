@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:islami_app/UI/home/headth_title.dart';
+import 'package:islami_app/generated/l10n.dart';
 
-import 'hadeth_model.dart';
+import '../hadeth_model.dart';
 
 class AheadthWidget extends StatefulWidget {
 
@@ -26,20 +29,20 @@ class _AheadthWidgetState extends State<AheadthWidget> {
           alignment: Alignment.center,
           width:  double.infinity,
           decoration: BoxDecoration(
-            border:Border.symmetric(horizontal: BorderSide(
-              color: Theme.of(context).primaryColor ,
+            border:Border.symmetric(
+                horizontal: BorderSide(
+                color: Theme.of(context).dividerColor,
               width: 2
             ))
           ),
           child: Text(
-            "Aheadth" ,
-            style: TextStyle(
-            fontSize: 24
+            // "Aheadth"
+          AppLocalizations.of(context)!.ahadeth
+            ,style: Theme.of(context).textTheme.titleLarge
           ),
           ),
-        ),
         Expanded(
-          flex: 3,
+          flex: 2,
             child: allHeadth.isEmpty
             ?Center(child:CircularProgressIndicator(), )
               :ListView.separated(
@@ -49,7 +52,7 @@ class _AheadthWidgetState extends State<AheadthWidget> {
                       width: double.infinity,
                       height: 2,
                       margin: EdgeInsets.all(5),
-                      color: Theme.of(context).primaryColor.withOpacity(0.5),
+                      color: Theme.of(context).dividerColor,
                     );
                   },
                   itemCount: allHeadth.length),

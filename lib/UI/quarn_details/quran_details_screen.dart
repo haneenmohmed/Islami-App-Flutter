@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import '../../providers/settings_provider.dart';
+import '../../style/app_theme.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class QuranDetailsScreen extends StatefulWidget {
 static const String routeName = "QuranDetailsScreen";
@@ -11,6 +15,8 @@ static const String routeName = "QuranDetailsScreen";
 class _QuranDetailsScreenState extends State<QuranDetailsScreen> {
   @override
   Widget build(BuildContext context) {
+    SettingsProvider provider = Provider.of<SettingsProvider>(context);
+
     QuarnDetailsArgs args = ModalRoute.of(context)?.settings.arguments as QuarnDetailsArgs ;
     if(Lines.isEmpty){
       readQuranFile(args.index);
@@ -18,7 +24,9 @@ class _QuranDetailsScreenState extends State<QuranDetailsScreen> {
     return Container(
         decoration: BoxDecoration(
         image: DecorationImage(
-        image: AssetImage("assets/images/backgroundall.png"),
+        image: AssetImage(provider.theme == ThemeMode.dark?
+        "assets/images/bg-dark.png":
+        "assets/images/backgroundall.png"),
     fit: BoxFit.fill
     )
     ),
@@ -29,16 +37,15 @@ class _QuranDetailsScreenState extends State<QuranDetailsScreen> {
            ),),
         ),
         body: Card(
-          margin: EdgeInsets.all(25),
-          elevation: 10,
+
           child:Lines.isNotEmpty
             ?ListView.separated(
               itemBuilder: (context , index )=>Text(
                  "(${index+1}) ${Lines[index]} " ,textAlign: TextAlign.right,
-                style: TextStyle(color: Colors.black , fontSize: 22)),
+                style: Theme.of(context).textTheme.bodyMedium),
               separatorBuilder: (context , index )=>Container(
                 height: 2,
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).dividerColor,
               ),
               itemCount: Lines.length)
               :Center(child: CircularProgressIndicator(),)

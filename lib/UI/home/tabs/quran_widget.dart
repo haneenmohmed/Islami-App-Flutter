@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:islami_app/UI/home/quran_title_widget.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class QuranWidget extends StatelessWidget {
+
   List<String> suraNames = [
     "الفاتحه","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود"
     ,"يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه","الأنبياء","الحج","المؤمنون"
@@ -22,11 +23,32 @@ class QuranWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return  Column(
      children: [
       Expanded(child: Image.asset("assets/images/mos7f-sura.png")),
-      Expanded(
-        flex: 2,
+      // Text("Chapter Title" ,style:Theme.of(context).textTheme.titleLarge),
+
+       Container(
+         alignment: Alignment.center,
+         width:  double.infinity,
+         decoration: BoxDecoration(
+             border:Border.symmetric(
+                 horizontal: BorderSide(
+                     color: Theme.of(context).dividerColor,
+                     width: 2,
+
+                 ))
+         ),
+         child: Text(
+             // "Chapter Title"
+             AppLocalizations.of(context)!.chaptertitle
+             ,style: Theme.of(context).textTheme.titleLarge
+         ),
+       ),
+
+       Expanded(
+        flex: 3,
         child: ListView.separated(
           padding:EdgeInsets.all(5),
             itemBuilder: (context, index){
@@ -44,7 +66,7 @@ class QuranWidget extends StatelessWidget {
                 width: double.infinity,
                 height: 2,
                 margin: EdgeInsets.all(3),
-                color: Theme.of(context).primaryColor.withOpacity(0.5),
+                color: Theme.of(context).dividerColor,
               );
             }
             ,
@@ -52,5 +74,6 @@ class QuranWidget extends StatelessWidget {
       )
 ],
     );
+
   }
 }

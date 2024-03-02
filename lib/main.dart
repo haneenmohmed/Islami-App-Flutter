@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:islami_app/UI/home/home_screen.dart';
 import 'package:islami_app/UI/quarn_details/quran_details_screen.dart';
-
+import 'package:islami_app/providers/settings_provider.dart';
+import 'package:islami_app/style/app_theme.dart';
+import 'package:provider/provider.dart';
 import 'UI/hadeth_details/hadeth_details_screen.dart';
-
-void main() {
-  runApp(const MyApp());
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  var provider = SettingsProvider();
+  await provider.LastSettings();
+  runApp(ChangeNotifierProvider(
+      create: (context)=>provider,
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -13,45 +21,32 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SettingsProvider provider = Provider.of<SettingsProvider>(context);
+
     return MaterialApp(
+
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Colors.transparent,
-          selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.white ,
-          selectedIconTheme: IconThemeData(
-            size: 32
-          ),
-          unselectedIconTheme: IconThemeData(
-            size: 22
-          )
-        ),
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.transparent,
-          centerTitle: true,
-titleTextStyle: TextStyle(
-  fontSize: 25,
-  fontWeight: FontWeight.bold,
-  color: Colors.black,
-)
-        ),
-        scaffoldBackgroundColor: Colors.transparent,
-        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xffB7935F),
-          primary: Color(0xffB7935F),
-          secondary : Color(0xffB7935F).withOpacity(0.57),
-          onPrimary:Colors.white,
-          onSecondary :Colors.black,
-        ),
-      // textTheme: ,
-        useMaterial3: true,
-      ),
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale("en"),
+        Locale("ar")
+      ],
+      locale :Locale(provider.language),
+      theme: AppTheme.lightTheme,
+      darkTheme:AppTheme.DarkTheme ,
+      themeMode:provider.theme,
       initialRoute: HomeScreen.routeName,
       routes: {
            HomeScreen.routeName:(_)=>HomeScreen(),
            QuranDetailsScreen.routeName:(_)=>QuranDetailsScreen(),
            HadethDetailsScreen.routeName:(_)=>HadethDetailsScreen(),
+
       },
 
 

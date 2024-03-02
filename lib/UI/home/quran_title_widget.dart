@@ -17,15 +17,12 @@ class QuranTitleWidget extends StatelessWidget {
         children: [
           Text(verseNumber ,
               textAlign: TextAlign.center,
-              style:TextStyle(
-                fontSize: 24,
-              )),
+              style: Theme.of(context).textTheme.labelMedium),
 
           Text(title ,
         textAlign: TextAlign.center,
-        style:TextStyle(
-        fontSize: 24,
-      ),) ,
+              style: Theme.of(context).textTheme.labelMedium),
+
 
         ],
       ),
